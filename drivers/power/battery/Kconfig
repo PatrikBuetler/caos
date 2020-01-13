@@ -1,0 +1,11 @@
+config DM_BATTERY
+	bool "Enable Driver Model for BATTERY drivers (UCLASS_BATTERY)"
+	depends on DM
+	---help---
+	This config enables driver model battery support.
+
+config DM_BATTERY_MAX17047
+	bool "MAX17047 battery/fuelgauge driver"
+	depends on DM_BATTERY && DM_PMIC_MAX17047
+	help
+	  Enable support for the fuelgauge functionality found in MAX17047.

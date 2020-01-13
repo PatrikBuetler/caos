@@ -1,0 +1,12 @@
+config DM_CHARGER
+	bool "Enable Driver Model for charger drivers (UCLASS_CHARGER)"
+	depends on DM
+	---help---
+	This config enables driver model charger support.
+
+config DM_CHARGER_MAX77693
+	bool "Enable DM charger support for max77693"
+	depends on DM_CHARGER
+	depends on DM_REGULATOR_MAX77693
+	---help---
+	This config enables support for using the max77693 as a charger.

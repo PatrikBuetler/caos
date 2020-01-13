@@ -100,7 +100,7 @@
 	"setbootargs=run readfitbootargs; setenv bootargs ${bootargs} androidboot.mode=${bootmode} androidboot.revision=${board_rev} androidboot.serialno=${serial#}\0" \
 	"machid=eb5\0" \
 
-#include <linux/sizes.h>
+#include "linux/sizes.h"
 
 #define CONFIG_BAUDRATE		115200
 

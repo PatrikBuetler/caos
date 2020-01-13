@@ -51,14 +51,12 @@ fit-dtb.blob
 #
 # Generated files
 #
-/spl/
 /tpl/
 /defconfig
 
 #
 # Generated include files
 #
-/include/config/
 /include/generated/
 
 # stgit generated dirs

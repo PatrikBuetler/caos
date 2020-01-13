@@ -3,7 +3,7 @@
 
 #define CONFIG_EXYNOS4
 
-#include <configs/exynos4-common.h>
+#include "exynos4-common.h"
 
 
 /* Cache disabled */

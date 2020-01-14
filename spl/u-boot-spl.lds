@@ -1,6 +1,6 @@
 MEMORY { .sram : ORIGIN = IMAGE_TEXT_BASE, LENGTH = ((14 << 10) - 4) }
 OUTPUT_FORMAT("elf32-littlearm", "elf32-littlearm", "elf32-littlearm")
-OUTPUT_ARCH("arm")
+OUTPUT_ARCH(arm)
 ENTRY(_start)
 SECTIONS
 {

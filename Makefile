@@ -1,3 +1,61 @@
+
+
+# Make variables (CC, etc...)
+
+AS		= $(CROSS_COMPILE)as
+# Always use GNU ld
+ifneq ($(shell $(CROSS_COMPILE)ld.bfd -v 2> /dev/null),)
+LD		= $(CROSS_COMPILE)ld.bfd
+else
+LD		= $(CROSS_COMPILE)ld
+endif
+CC		= $(CROSS_COMPILE)gcc
+CPP		= $(CC) -E
+AR		= $(CROSS_COMPILE)ar
+NM		= $(CROSS_COMPILE)nm
+LDR		= $(CROSS_COMPILE)ldr
+STRIP		= $(CROSS_COMPILE)strip
+OBJCOPY		= $(CROSS_COMPILE)objcopy
+OBJDUMP		= $(CROSS_COMPILE)objdump
+LEX		= flex
+YACC		= bison
+AWK		= awk
+PERL		= perl
+PYTHON		?= python
+PYTHON2		= python2
+PYTHON3		= python3
+DTC		?= $(objtree)/scripts/dtc/dtc
+CHECK		= sparse
+
+CHECKFLAGS     := -D__linux__ -Dlinux -D__STDC__ -Dunix -D__unix__ \
+		  -Wbitwise -Wno-return-void -D__CHECK_ENDIAN__ $(CF)
+
+KBUILD_CPPFLAGS := -D__KERNEL__ -D__UBOOT__
+
+KBUILD_CFLAGS   := -Wall -Wstrict-prototypes \
+		   -Wno-format-security \
+		   -fno-builtin -ffreestanding $(CSTD_FLAG)
+KBUILD_CFLAGS	+= -fshort-wchar -fno-strict-aliasing
+KBUILD_AFLAGS   := -D__ASSEMBLY__
+
+# Don't generate position independent code
+KBUILD_CFLAGS	+= $(call cc-option,-fno-PIE)
+KBUILD_AFLAGS	+= $(call cc-option,-fno-PIE)
+
+# Read UBOOTRELEASE from include/config/uboot.release (if it exists)
+UBOOTRELEASE = $(shell cat include/config/uboot.release 2> /dev/null)
+UBOOTVERSION = $(VERSION)$(if $(PATCHLEVEL),.$(PATCHLEVEL)$(if $(SUBLEVEL),.$(SUBLEVEL)))$(EXTRAVERSION)
+
+export VERSION PATCHLEVEL SUBLEVEL UBOOTRELEASE UBOOTVERSION
+export ARCH CPU BOARD VENDOR SOC CPUDIR BOARDDIR
+export CONFIG_SHELL HOSTCC HOSTCFLAGS HOSTLDFLAGS CROSS_COMPILE AS LD CC
+export CPP AR NM LDR STRIP OBJCOPY OBJDUMP
+export MAKE LEX YACC AWK PERL PYTHON PYTHON2 PYTHON3
+export HOSTCXX HOSTCXXFLAGS CHECK CHECKFLAGS DTC DTC_FLAGS
+
+export KBUILD_CPPFLAGS NOSTDINC_FLAGS UBOOTINCLUDE OBJCOPYFLAGS LDFLAGS
+export KBUILD_CFLAGS KBUILD_AFLAGS
+
 ALL-$(CONFIG_SPL) += spl/u-boot-spl.bin
 
 spl/u-boot-spl.srec: spl/u-boot-spl FORCE
